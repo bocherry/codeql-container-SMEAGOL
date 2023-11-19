@@ -74,13 +74,13 @@ RUN CODEQL_VERSION=$(cat /tmp/codeql_version) && \
 ENV PATH="${CODEQL_HOME}/codeql:${PATH}"
 
 # Pre-compile our queries to save time later
-RUN codeql query compile --threads=0 ${CODEQL_HOME}/codeql-repo/*/ql/src/codeql-suites/*.qls --additional-packs=.
+#RUN codeql query compile --threads=0 ${CODEQL_HOME}/codeql-repo/*/ql/src/codeql-suites/*.qls --additional-packs=.
 
 ENV PYTHONIOENCODING=utf-8
 
 # Change ownership of all files and directories within CODEQL_HOME to the codeql user
 #RUN chown -R ${USERNAME}:${USERNAME} ${CODEQL_HOME}
-
+RUN ["chmod", "+x", "usr/local/startup_scripts/setup.py"]
 USER ${USERNAME}
 
 ENTRYPOINT ["python3", "/usr/local/startup_scripts/startup.py"] 

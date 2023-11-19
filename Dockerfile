@@ -62,6 +62,10 @@ RUN mkdir -p \
     ${CODEQL_HOME}/codeql-repo \
     /opt/codeql
 
+# download SMEAGOL queries
+RUN mkdir /opt/SMEAGOL
+RUN git clone https://github.com/bocherry/SMEAGOL_tool /opt/SMEAGOL
+
 # get the latest codeql queries and record the HEAD
 RUN git clone --depth 1 https://github.com/github/codeql ${CODEQL_HOME}/codeql-repo && \
     git --git-dir ${CODEQL_HOME}/codeql-repo/.git log --pretty=reference -1 > /opt/codeql/codeql-repo-last-commit
